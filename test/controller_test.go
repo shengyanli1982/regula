@@ -29,11 +29,7 @@ func TestFlowController_Do(t *testing.T) {
 	pl := karta.NewPipeline(queue, kconf)
 	fc := regula.NewFlowController(pl, nil)
 
-	defer func() {
-		pl.Stop()
-		queue.Stop()
-		fc.Stop()
-	}()
+	defer fc.Stop()
 
 	err := fc.Do(func(msg any) (any, error) {
 		fmt.Printf("msg: %v\n", msg)
@@ -52,11 +48,7 @@ func TestFlowController_DoAfter(t *testing.T) {
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)
 	fc := regula.NewFlowController(pl, fconf)
 
-	defer func() {
-		pl.Stop()
-		queue.Stop()
-		fc.Stop()
-	}()
+	defer fc.Stop()
 
 	for i := 0; i < 10; i++ {
 		v := i
@@ -78,11 +70,7 @@ func TestFlowController_DoParallel(t *testing.T) {
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)
 	fc := regula.NewFlowController(pl, fconf)
 
-	defer func() {
-		pl.Stop()
-		queue.Stop()
-		fc.Stop()
-	}()
+	defer fc.Stop()
 
 	wg := sync.WaitGroup{}
 	for i := 0; i < 10; i++ {

@@ -47,13 +47,9 @@ func main() {
 	// Create a new flow controller using the pipeline and configuration
 	fc := regula.NewFlowController(pl, fconf)
 
-	// 在函数结束时停止管道、队列和流控制器
-	// Stop the pipeline, queue and flow controller when the function ends
-	defer func() {
-		pl.Stop()
-		queue.Stop()
-		fc.Stop()
-	}()
+	// 在函数结束时停止管道、队列和流控制器 (FlowController 会关闭 Pipeline，Pipeline 会关闭 Queue)
+	// Stop the pipeline, queue and flow controller when the function ends (FlowController will close Pipeline, Pipeline will close Queue)
+	defer fc.Stop()
 
 	// 创建一个等待组
 	// Create a wait group
