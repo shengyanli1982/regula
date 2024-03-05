@@ -17,10 +17,6 @@ type PipelineInterface = interface {
 	// SubmitAfterWithFunc adds a new event to the pipeline and specifies the message processing function and delay time.
 	SubmitAfterWithFunc(fn MessageHandleFunc, msg any, delay time.Duration) error
 
-	// GetWorkerNumber 获取管道的工作线程数量。
-	// GetWorkerNumber gets the number of working threads in the pipeline.
-	GetWorkerNumber() int64
-
 	// Stop 停止管道的运行。
 	// Stop stops the pipeline.
 	Stop()

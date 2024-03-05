@@ -12,7 +12,7 @@
 
 `Regula` is based on the `workqueue` + `workpool` + `ratelimiter` pattern. So you can submit any function to `Regula` and it will be executed in a concurrent and rate-limited way.
 
-## Why we need Regula?
+## Why need Regula?
 
 In Golang, we have various ways to handle concurrency and data flow, such as `channel`, `sync`, `context`, etc. However, these approaches can be challenging to use and may not provide optimal efficiency. `Regula` simplifies the complexity of concurrency and data flow, allowing developers to focus on the business logic.
 
@@ -71,10 +71,6 @@ type PipelineInterface = interface {
 	// SubmitAfterWithFunc 将一个新的事件添加到管道中，并指定消息处理函数和延迟时间。
 	// SubmitAfterWithFunc adds a new event to the pipeline and specifies the message processing function and delay time.
 	SubmitAfterWithFunc(fn MessageHandleFunc, msg any, delay time.Duration) error
-
-	// GetWorkerNumber 获取管道的工作线程数量。
-	// GetWorkerNumber gets the number of working threads in the pipeline.
-	GetWorkerNumber() int64
 
 	// Stop 停止管道的运行。
 	// Stop stops the pipeline.
