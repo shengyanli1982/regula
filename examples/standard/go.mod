@@ -1,8 +1,8 @@
-module github.com/shengyanli1982/regula/example
+module github.com/shengyanli1982/regula/examples/standard
 
 go 1.19
 
-replace github.com/shengyanli1982/regula => ../
+replace github.com/shengyanli1982/regula => ../../
 
 require (
 	github.com/shengyanli1982/karta v0.1.8

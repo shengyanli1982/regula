@@ -1,7 +1,8 @@
 go 1.19
 
 use (
-    .
 	./test
-    ./example
+	./contrib/lazy
+	./examples/standard
+	./examples/simple
 )

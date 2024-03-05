@@ -31,18 +31,23 @@ func main() {
 	// 创建一个新的配置，并设置工作线程数为2
 	// Create a new configuration and set the number of worker threads to 2
 	kconf := karta.NewConfig().WithWorkerNumber(2)
+
 	// 创建一个新的假延迟队列
 	// Create a new fake delay queue
 	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+
 	// 使用队列和配置创建一个新的管道
 	// Create a new pipeline using the queue and configuration
 	pl := karta.NewPipeline(queue, kconf)
+
 	// 创建一个新的速率限制器，并设置速率为10，突发为1
 	// Create a new rate limiter and set the rate to 10 and burst to 1
 	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
+
 	// 创建一个新的流控制器配置，并设置回调函数和速率限制器
 	// Create a new flow controller configuration and set the callback function and rate limiter
 	fconf := regula.NewConfig().WithCallback(newCallback()).WithRateLimiter(rl)
+
 	// 使用管道和配置创建一个新的流控制器
 	// Create a new flow controller using the pipeline and configuration
 	fc := regula.NewFlowController(pl, fconf)
