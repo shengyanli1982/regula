@@ -1,4 +1,4 @@
-module github.com/shengyanli1982/regula/examples/simple
+module github.com/shengyanli1982/regula/examples/lazy
 
 go 1.19
 

@@ -4,5 +4,5 @@ use (
 	./test
 	./contrib/lazy
 	./examples/standard
-	./examples/simple
+	./examples/lazy
 )
