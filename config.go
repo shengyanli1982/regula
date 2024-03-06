@@ -43,16 +43,26 @@ func (c *Config) WithCallback(cb Callback) *Config {
 // isConfigValid 是一个函数，它检查配置是否有效，如果无效，它将设置为默认值
 // isConfigValid is a function that checks if the configuration is valid, if not, it sets it to the default values
 func isConfigValid(conf *Config) *Config {
+	// 如果配置不为空
+	// If the configuration is not null
 	if conf != nil {
+		// 如果配置中的速率限制器为空，则设置为无操作限制器
+		// If the rate limiter in the configuration is null, set it to a no-operation limiter
 		if conf.ratelimiter == nil {
 			conf.ratelimiter = rl.NewNopLimiter()
 		}
+		// 如果配置中的回调函数为空，则设置为空回调函数
+		// If the callback function in the configuration is null, set it to an empty callback function
 		if conf.callback == nil {
 			conf.callback = NewEmptyCallback()
 		}
 	} else {
+		// 如果配置为空，则设置为默认配置
+		// If the configuration is null, set it to the default configuration
 		conf = DefaultConfig()
 	}
 
+	// 返回配置
+	// Return the configuration
 	return conf
 }
