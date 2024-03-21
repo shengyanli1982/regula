@@ -1,62 +1,62 @@
-English | [中文](./README_CN.md)
+[English](./README.md) | 中文
 
 <div align="center">
 	<img src="assets/logo.png" alt="logo" width="500px">
 </div>
 
-## What is Regula?
+## 什么是 Regula？
 
-`Regula` is a flow control component designed to help Golang applications manage concurrency and data flow. It is designed to be simple, efficient, and easy to use, and it is designed to be used in a wide range of applications, from simple web applications to complex distributed systems.
+`Regula` 是一个流控组件，旨在帮助 Golang 应用程序管理并发和数据流。它被设计为简单、高效和易于使用，并可用于各种应用程序，从简单的 Web 应用程序到复杂的分布式系统。
 
-`Regula` is based on the `workqueue` + `workpool` + `ratelimiter` pattern. So you can submit any function to `Regula` and it will be executed in a concurrent and rate-limited way.
+`Regula` 基于 `workqueue` + `workpool` + `ratelimiter` 模式。因此，您可以将任何函数提交给 `Regula`，它将以并发和限速的方式执行。
 
-## Why need Regula?
+## 为什么需要 Regula？
 
-In Golang, we have various ways to handle concurrency and data flow, such as `channel`, `sync`, `context`, etc. However, these approaches can be challenging to use and may not provide optimal efficiency. `Regula` simplifies the complexity of concurrency and data flow, allowing developers to focus on the business logic.
+在 Golang 中，我们有多种处理并发和数据流的方式，例如 `channel`、`sync`、`context` 等。然而，这些方法使用起来可能具有挑战性，并且可能无法提供最佳的效率。`Regula` 简化了并发和数据流的复杂性，使开发人员能够专注于业务逻辑。
 
-If `Regula` had been available earlier, I believe I could have finished my work more efficiently and possibly even left early every day.
+如果早些时候有了 `Regula`，我相信我可以更高效地完成工作，甚至可能每天提前下班。
 
-### Advantages
+### 优势
 
-`Regula` is designed with the following key advantages:
+`Regula` 具有以下关键优势：
 
--   **Simple**: `Regula` is designed to be simple and easy to use. It provides a simple method that allows developers to submit functions and manage concurrency and data flow with ease.
--   **Efficient**: `Regula` is designed to be lightweight and to provide optimal performance in a wide range of applications.
--   **Flexible**: `Regula` is designed to be flexible. It doesn't bind you to specifics of the `workqueue` + `workpool` + `ratelimiter` pattern.
--   **Scalable**: `Regula` is designed to be scalable, you can custom the `pipeline` and `ratelimiter` to fit your needs.
--   **Reliable**: `Regula` is designed to be reliable. It based on proven technologies and has been tested in a wide range of applications.
+-   **简单**：`Regula` 设计简单易用。它提供了一种简单的方法，让开发人员轻松提交函数并管理并发和数据流。
+-   **高效**：`Regula` 设计轻量且在各种应用程序中提供最佳性能。
+-   **灵活**：`Regula` 设计灵活。它不限制您使用 `workqueue` + `workpool` + `ratelimiter` 模式。
+-   **可扩展**：`Regula` 设计可扩展，您可以自定义 `pipeline` 和 `ratelimiter` 来满足您的需求。
+-   **可靠**：`Regula` 设计可靠。它基于经过验证的技术，并在各种应用程序中进行了测试。
 
-## Installation
+## 安装
 
-### 1. Standard mode
+### 1. 标准模式
 
 ```bash
 go get github.com/shengyanli1982/regula
 ```
 
-### 2. Lazy mode
+### 2. 懒惰模式
 
 ```bash
 go get github.com/shengyanli1982/regula/contrib/lazy
 ```
 
-# Quick Start
+# 快速入门
 
-`Regula` is very simple to use. Just few lines of code to get started.
+`Regula` 的使用非常简单，只需几行代码即可开始使用。
 
-## 1. Config
+## 1. 配置
 
-`Regula` has a config object, which can be used to register the `pipeline` and `ratelimiter` modules. The config object has the following fields:
+`Regula` 有一个配置对象，用于注册 `pipeline` 和 `ratelimiter` 模块。配置对象具有以下字段：
 
--   `WithRateLimiter`: Register the `ratelimiter` module.
--   `WithCallback`: Set the callback function for `Regula` submit function.
+-   `WithRateLimiter`：注册 `ratelimiter` 模块。
+-   `WithCallback`：为 `Regula` 提交函数设置回调函数。
 
 > [!TIP]
-> If you want to use a custom `pipeline` or `ratelimiter` module, you can implement the specific internal interface and pass it to the config object.
+> 如果您想使用自定义的 `pipeline` 或 `ratelimiter` 模块，可以实现特定的内部接口并将其传递给配置对象。
 >
-> `pipline` module only work in `NewFlowController` method.
+> `pipeline` 模块仅在 `NewFlowController` 方法中起作用。
 
-**Pipeline Interface**
+**Pipeline 接口**
 
 ```go
 // PipelineInterface 是一个管道接口，用于添加事件到管道、延迟添加事件到管道以及停止管道的操作。
@@ -76,7 +76,7 @@ type PipelineInterface = interface {
 }
 ```
 
-**Ratelimiter Interface**
+**速率限制器接口**
 
 ```go
 // RateLimiterInterface 是一个接口，定义了一个方法，该方法返回下一个事件的延迟时间
@@ -88,39 +88,39 @@ type RateLimiterInterface = interface {
 }
 ```
 
-## 2. Components
+## 2. 组件
 
-The `Regula` library has the following components:
+`Regula` 库具有以下组件：
 
-### 2.1. Ratelimiter
+### 2.1. 速率限制器
 
-`Ratelimiter` is a rate limiter module. It use google `golang.org/x/time/rate` package which mean it use bucket algorithm to control the rate of events.
+`Ratelimiter` 是一个速率限制器模块。它使用 Google 的 `golang.org/x/time/rate` 包，采用桶算法来控制事件的速率。
 
-#### 2.1.1. Config
+#### 2.1.1. 配置
 
--   `WithRate`: Set the rate of events per second. Default is `DefaultLimitRate`.
--   `WithBurst`: Set the burst of events. Default is `DefaultLimitBurst`.
+-   `WithRate`：设置每秒的事件速率。默认值为 `DefaultLimitRate`。
+-   `WithBurst`：设置事件的突发数量。默认值为 `DefaultLimitBurst`。
 
-#### 2.1.2. Methods
+#### 2.1.2. 方法
 
--   `When`: Return the delay time of the next event.
+-   `When`：返回下一个事件的延迟时间。
 
-## 3. Methods
+## 3. 方法
 
-The `Regula` provides the following methods:
+`Regula` 提供以下方法：
 
--   `NewFlowController`: Create a new flow controller.
--   `Stop`: Stop the flow controller.
--   `Do`: Submit a function to the flow controller.
+-   `NewFlowController`：创建一个新的流控制器。
+-   `Stop`：停止流控制器。
+-   `Do`：将函数提交给流控制器。
 
 > [!NOTE]
-> If you use `lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller. The flow controller will use the default `pipeline` and `ratelimiter` modules. The `NewSimpleFlowController` method provides the `callback` function, `rate`, and `burst` parameters.
+> 如果您使用 `懒惰模式`，可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。流控制器将使用默认的 `pipeline` 和 `ratelimiter` 模块。`NewSimpleFlowController` 方法提供了 `回调函数`、`速率` 和 `突发数量` 参数。
 
-## 4. Examples
+## 4. 示例
 
-Example code is located in the `examples` directory.
+示例代码位于 `examples` 目录中。
 
-### 4.1. Standard mode
+### 4.1. 标准模式
 
 ```go
 package main
@@ -215,7 +215,7 @@ func main() {
 }
 ```
 
-**Result**
+**执行结果**
 
 ```bash
 $ go run demo.go
@@ -240,9 +240,9 @@ msg: test -> 3
 msg: test -> 7
 ```
 
-### 4.2. Lazy mode
+### 4.2. 懒惰模式
 
-In `lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller. This method wraps the `NewFlowController` method and uses the default `pipeline` and `ratelimiter` modules.
+在懒惰模式下，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。该方法封装了 `NewFlowController` 方法，并使用默认的 `pipeline` 和 `ratelimiter` 模块。
 
 ```go
 package main
@@ -314,7 +314,7 @@ func main() {
 }
 ```
 
-**Result**
+**执行结果**
 
 ```bash
 $ go run demo.go
