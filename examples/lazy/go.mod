@@ -10,8 +10,8 @@ replace (
 require github.com/shengyanli1982/regula/contrib/lazy v0.0.0-00010101000000-000000000000
 
 require (
-	github.com/shengyanli1982/karta v0.1.8 // indirect
+	github.com/shengyanli1982/karta v0.1.10 // indirect
 	github.com/shengyanli1982/regula v0.0.0-00010101000000-000000000000 // indirect
-	github.com/shengyanli1982/workqueue v0.1.9 // indirect
+	github.com/shengyanli1982/workqueue v0.1.11 // indirect
 	golang.org/x/time v0.5.0 // indirect
 )
