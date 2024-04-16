@@ -1,18 +1,26 @@
 [English](./README.md) | 中文
 
 <div align="center">
-	<img src="assets/logo.png" alt="logo" width="500px">
+	<img src="assets/logo.png" alt="logo" width="500px"></br>
 </div>
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/shengyanli1982/regula)](https://goreportcard.com/report/github.com/shengyanli1982/regula)
+[![Build Status](https://github.com/shengyanli1982/regula/actions/workflows/test.yaml/badge.svg)](https://github.com/shengyanli1982/regula/actions)
+[![Go Reference](https://pkg.go.dev/badge/github.com/shengyanli1982/regula.svg)](https://pkg.go.dev/github.com/shengyanli1982/regula)
 
 ## 什么是 Regula？
 
 `Regula` 是一个流控组件，旨在帮助 Golang 应用程序管理并发和数据流。它被设计为简单、高效和易于使用，并可用于各种应用程序，从简单的 Web 应用程序到复杂的分布式系统。
 
-`Regula` 基于 `workqueue` + `workpool` + `ratelimiter` 模式。因此，您可以将任何函数提交给 `Regula`，它将以并发和限速的方式执行。
+`Regula` 基于 `workqueue` + `workpool` + `ratelimiter` 模式。这使您可以将任何函数提交给 `Regula` 进行并发和速率限制的执行。因此，`Regula` 适用于需要同时具备并发和速率限制的场景。
+
+`Regula` 是限制对任何资源（如数据库、API 或文件）请求速率的理想选择。
 
 ## 为什么需要 Regula？
 
 在 Golang 中，我们有多种处理并发和数据流的方式，例如 `channel`、`sync`、`context` 等。然而，这些方法使用起来可能具有挑战性，并且可能无法提供最佳的效率。`Regula` 简化了并发和数据流的复杂性，使开发人员能够专注于业务逻辑。
+
+`Regula` 提供了灵活性，使核心组件能够根据特定需求实现接口并替换内部模块。这种设计可能使 `Regula` 看起来复杂，但实际上大大简化了它的使用。
 
 如果早些时候有了 `Regula`，我相信我可以更高效地完成工作，甚至可能每天提前下班。
 

@@ -1,18 +1,26 @@
 English | [中文](./README_CN.md)
 
 <div align="center">
-	<img src="assets/logo.png" alt="logo" width="500px">
+	<img src="assets/logo.png" alt="logo" width="500px"></br>
 </div>
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/shengyanli1982/regula)](https://goreportcard.com/report/github.com/shengyanli1982/regula)
+[![Build Status](https://github.com/shengyanli1982/regula/actions/workflows/test.yaml/badge.svg)](https://github.com/shengyanli1982/regula/actions)
+[![Go Reference](https://pkg.go.dev/badge/github.com/shengyanli1982/regula.svg)](https://pkg.go.dev/github.com/shengyanli1982/regula)
 
 ## What is Regula?
 
 `Regula` is a flow control component designed to help Golang applications manage concurrency and data flow. It is designed to be simple, efficient, and easy to use, and it is designed to be used in a wide range of applications, from simple web applications to complex distributed systems.
 
-`Regula` is based on the `workqueue` + `workpool` + `ratelimiter` pattern. So you can submit any function to `Regula` and it will be executed in a concurrent and rate-limited way.
+`Regula` is based on the `workqueue` + `workpool` + `ratelimiter` pattern. This allows you to submit any function to `Regula` for concurrent and rate-limited execution. Therefore, `Regula` is suitable for scenarios that require both concurrency and rate limiting.
+
+`Regula` is a perfect fit for limiting the rate of requests to any resource, such as a database, API, or file.
 
 ## Why need Regula?
 
 In Golang, we have various ways to handle concurrency and data flow, such as `channel`, `sync`, `context`, etc. However, these approaches can be challenging to use and may not provide optimal efficiency. `Regula` simplifies the complexity of concurrency and data flow, allowing developers to focus on the business logic.
+
+`Regula` offers the flexibility for core components to implement interfaces and replace internal modules based on specific needs. This design may make `Regula` appear complex, but it actually simplifies its usage significantly.
 
 If `Regula` had been available earlier, I believe I could have finished my work more efficiently and possibly even left early every day.
 
