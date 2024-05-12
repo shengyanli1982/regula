@@ -39,11 +39,15 @@
 
 ### 1. 专家模式
 
+`专家模式` 允许您以更灵活的方式使用 `Regula` 库。通过利用 `pipeline` 和 `ratelimiter` 接口，您可以创建自定义的流控制器，从而对模块的细节进行控制。
+
 ```bash
 go get github.com/shengyanli1982/regula
 ```
 
 ### 2. 懒人模式
+
+在 `懒人模式` 中，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器，该流控制器使用默认的 `pipeline` 和 `ratelimiter` 模块，使得使用 `Regula` 库更加方便。
 
 ```bash
 go get github.com/shengyanli1982/regula/contrib/lazy
@@ -135,6 +139,19 @@ type RateLimiterInterface = interface {
 
 ### 5.1. 专家模式
 
+在 `专家模式` 下，您可以使用 `NewFlowController` 方法创建自定义的流控制器。这样可以自定义 `pipeline` 和 `ratelimiter` 模块。
+
+在 `专家模式` 下，您需要自定义 `pipeline` 和 `ratelimiter` 模块，并根据需要设置所需的参数。然后，将它们传递给 `NewFlowController` 方法。
+
+以下是在 `专家模式` 下使用 `Regula` 库的示例：
+
+1. 使用自定义的延迟队列创建新的流水线。
+2. 使用自定义的流水线和速率限制器创建新的流控制器。
+3. 为流控制器设置回调函数。
+4. 启动 10 个 goroutine。
+5. 将函数提交给流控制器。
+6. 等待所有 goroutine 完成。
+
 ```go
 package main
 
@@ -197,6 +214,7 @@ func main() {
 	// 创建一个等待组
 	// Create a wait group
 	wg := sync.WaitGroup{}
+
 	// 启动10个协程
 	// Start 10 goroutines
 	for i := 0; i < 10; i++ {
@@ -218,6 +236,7 @@ func main() {
 			}
 		}()
 	}
+
 	// 等待所有协程结束
 	// Wait for all goroutines to end
 	wg.Wait()
@@ -255,7 +274,16 @@ msg: test -> 8
 
 ### 5.2. 懒人模式
 
-在懒人模式下，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。该方法封装了 `NewFlowController` 方法，并使用默认的 `pipeline` 和 `ratelimiter` 模块。
+在 `懒人模式` 下，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。该方法封装了 `NewFlowController` 方法，并使用默认的 `pipeline` 和 `ratelimiter` 模块。
+
+`NewSimpleFlowController` 方法允许您指定 `rate` 和 `burst` 参数，并提供一个可选的 `callback` 函数。
+
+以下是使用 `懒人模式` 的示例：
+
+1. 创建一个速率为 2、突发为 1 的流控制器，并添加回调函数。
+2. 启动 10 个协程。
+3. 提交一个函数给流控制器。
+4. 等待所有协程完成。
 
 ```go
 package main
@@ -296,6 +324,7 @@ func main() {
 	// 创建一个等待组
 	// Create a wait group
 	wg := sync.WaitGroup{}
+
 	// 启动10个协程
 	// Start 10 goroutines
 	for i := 0; i < 10; i++ {
@@ -317,6 +346,7 @@ func main() {
 			}
 		}()
 	}
+
 	// 等待所有协程结束
 	// Wait for all goroutines to end
 	wg.Wait()
