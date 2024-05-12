@@ -35,5 +35,5 @@ type RateLimiterInterface = interface {
 type Callback = interface {
 	// OnExecLimited 当达到速率限制时的回调函数
 	// OnExecLimited is the callback function when the rate limit is reached
-	OnExecLimited(delay time.Duration)
+	OnExecLimited(msg any, delay time.Duration)
 }

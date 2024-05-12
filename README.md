@@ -155,8 +155,8 @@ type demoCallback struct{}
 
 // OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
 // OnExecLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnExecLimited(delay time.Duration) {
-	fmt.Printf("limited: %v\n", delay.String())
+func (demoCallback) OnExecLimited(msg any, delay time.Duration) {
+	fmt.Printf("limited -> msg: %v, delay: %v\n", msg, delay.String())
 }
 
 // newCallback 是一个函数，它创建并返回一个新的demoCallback
@@ -232,25 +232,25 @@ func main() {
 
 ```bash
 $ go run demo.go
-limited: 400ms
-limited: 800ms
-limited: 100ms
-limited: 300ms
-limited: 900ms
-limited: 500ms
-limited: 700ms
 msg: test -> 9
-limited: 200ms
-limited: 600ms
-msg: test -> 4
-msg: test -> 0
-msg: test -> 1
+limited -> msg: test, delay: 400ms
+limited -> msg: test, delay: 700ms
+limited -> msg: test, delay: 300ms
+limited -> msg: test, delay: 200ms
+limited -> msg: test, delay: 500ms
+limited -> msg: test, delay: 600ms
+limited -> msg: test, delay: 100ms
+limited -> msg: test, delay: 800ms
+limited -> msg: test, delay: 900ms
 msg: test -> 5
-msg: test -> 6
-msg: test -> 2
-msg: test -> 8
 msg: test -> 3
+msg: test -> 0
 msg: test -> 7
+msg: test -> 2
+msg: test -> 4
+msg: test -> 6
+msg: test -> 1
+msg: test -> 8
 ```
 
 ### 5.2. Lazy mode
@@ -274,8 +274,8 @@ type demoCallback struct{}
 
 // OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
 // OnExecLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnExecLimited(delay time.Duration) {
-	fmt.Printf("limited: %v\n", delay.String())
+func (demoCallback) OnExecLimited(msg any, delay time.Duration) {
+	fmt.Printf("limited -> msg: %v, delay: %v\n", msg, delay.String())
 }
 
 // newCallback 是一个函数，它创建并返回一个新的demoCallback
@@ -331,23 +331,23 @@ func main() {
 
 ```bash
 $ go run demo.go
-limited: 4.5s
-limited: 1.5s
-msg: test -> 4
-limited: 500ms
-limited: 2s
-limited: 2.5s
-limited: 3s
-limited: 1s
-limited: 3.5s
-limited: 4s
+limited -> msg: test, delay: 1s
+limited -> msg: test, delay: 500ms
+limited -> msg: test, delay: 3.5s
+limited -> msg: test, delay: 1.5s
+limited -> msg: test, delay: 3s
+limited -> msg: test, delay: 2s
+limited -> msg: test, delay: 2.5s
+limited -> msg: test, delay: 4.5s
+limited -> msg: test, delay: 4s
 msg: test -> 9
-msg: test -> 1
-msg: test -> 0
+msg: test -> 4
 msg: test -> 5
-msg: test -> 2
+msg: test -> 0
 msg: test -> 8
-msg: test -> 3
 msg: test -> 6
+msg: test -> 3
+msg: test -> 2
 msg: test -> 7
+msg: test -> 1
 ```
