@@ -39,11 +39,15 @@ If `Regula` had been available earlier, I believe I could have finished my work 
 
 ### 1. Expert mode
 
+`Expert` mode allows you to use the `Regula` library in a more flexible way. You can create a custom flow controller by utilizing the `pipeline` and `ratelimiter` interfaces, giving you control over the details of the modules.
+
 ```bash
 go get github.com/shengyanli1982/regula
 ```
 
 ### 2. Lazy mode
+
+In `Lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller with the default `pipeline` and `ratelimiter` modules, making it more convenient to use the `Regula` library.
 
 ```bash
 go get github.com/shengyanli1982/regula/contrib/lazy
@@ -135,6 +139,19 @@ Example code is located in the `examples` directory.
 
 ### 5.1. Expert mode
 
+In `Expert` mode, you can create a custom flow controller using the `NewFlowController` method. This allows you to customize the `pipeline` and `ratelimiter` modules.
+
+With `Expert` mode, you have full control over the implementation of the `pipeline` and `ratelimiter` modules, giving you the flexibility to customize them according to your needs.
+
+Here is an example of how to use the `Regula` library in `Expert` mode:
+
+1. Create a new pipeline with a custom delay queue.
+2. Create a new flow controller with a custom pipeline and rate limiter.
+3. Set a callback function for the flow controller.
+4. Start 10 goroutines.
+5. Submit a function to the flow controller.
+6. Wait for all goroutines to finish.
+
 ```go
 package main
 
@@ -197,6 +214,7 @@ func main() {
 	// 创建一个等待组
 	// Create a wait group
 	wg := sync.WaitGroup{}
+
 	// 启动10个协程
 	// Start 10 goroutines
 	for i := 0; i < 10; i++ {
@@ -218,6 +236,7 @@ func main() {
 			}
 		}()
 	}
+
 	// 等待所有协程结束
 	// Wait for all goroutines to end
 	wg.Wait()
@@ -256,6 +275,15 @@ msg: test -> 8
 ### 5.2. Lazy mode
 
 In `lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller. This method wraps the `NewFlowController` method and uses the default `pipeline` and `ratelimiter` modules.
+
+The `NewSimpleFlowController` method allows you to specify the `rate` and `burst` parameters, and provides an optional `callback` function.
+
+Here's an example of using the `lazy` mode:
+
+1. Create a new flow controller with a rate of 2, a burst of 1, and an optional callback function.
+2. Start 10 goroutines.
+3. Submit a function to the flow controller.
+4. Wait for all goroutines to finish.
 
 ```go
 package main
@@ -296,6 +324,7 @@ func main() {
 	// 创建一个等待组
 	// Create a wait group
 	wg := sync.WaitGroup{}
+
 	// 启动10个协程
 	// Start 10 goroutines
 	for i := 0; i < 10; i++ {
@@ -317,6 +346,7 @@ func main() {
 			}
 		}()
 	}
+
 	// 等待所有协程结束
 	// Wait for all goroutines to end
 	wg.Wait()
