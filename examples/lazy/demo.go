@@ -12,9 +12,9 @@ import (
 // demoCallback is an empty structure used to implement the callback interface
 type demoCallback struct{}
 
-// OnLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
-// OnLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnLimited(delay time.Duration) {
+// OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
+// OnExecLimited is a method that prints the limited delay time when being limited
+func (demoCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 
@@ -36,6 +36,7 @@ func main() {
 	// 创建一个等待组
 	// Create a wait group
 	wg := sync.WaitGroup{}
+
 	// 启动10个协程
 	// Start 10 goroutines
 	for i := 0; i < 10; i++ {
@@ -57,6 +58,7 @@ func main() {
 			}
 		}()
 	}
+
 	// 等待所有协程结束
 	// Wait for all goroutines to end
 	wg.Wait()

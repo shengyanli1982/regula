@@ -33,7 +33,7 @@ type RateLimiterInterface = interface {
 // Callback 是一个接口，定义了一个方法，该方法是达到速率限制时的回调函数
 // Callback is an interface that defines a method that is the callback function when the rate limit is reached
 type Callback = interface {
-	// OnLimited 当达到速率限制时的回调函数
-	// OnLimited is the callback function when the rate limit is reached
-	OnLimited(delay time.Duration)
+	// OnExecLimited 当达到速率限制时的回调函数
+	// OnExecLimited is the callback function when the rate limit is reached
+	OnExecLimited(delay time.Duration)
 }

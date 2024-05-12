@@ -1,7 +1,8 @@
 English | [中文](./README_CN.md)
 
 <div align="center">
-	<img src="assets/logo.png" alt="logo" width="500px"></br>
+	<img src="assets/logo.png" alt="logo" width="500px">
+	</br></br></br>
 </div>
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/shengyanli1982/regula)](https://goreportcard.com/report/github.com/shengyanli1982/regula)
@@ -36,7 +37,7 @@ If `Regula` had been available earlier, I believe I could have finished my work 
 
 ## Installation
 
-### 1. Standard mode
+### 1. Expert mode
 
 ```bash
 go get github.com/shengyanli1982/regula
@@ -124,11 +125,15 @@ The `Regula` provides the following methods:
 > [!NOTE]
 > If you use `lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller. The flow controller will use the default `pipeline` and `ratelimiter` modules. The `NewSimpleFlowController` method provides the `callback` function, `rate`, and `burst` parameters.
 
-## 4. Examples
+## 4. Callback
+
+-   `OnExecLimited`: This method is called when the event handling is limited.
+
+## 5. Examples
 
 Example code is located in the `examples` directory.
 
-### 4.1. Standard mode
+### 5.1. Expert mode
 
 ```go
 package main
@@ -148,9 +153,9 @@ import (
 // demoCallback is an empty structure used to implement the callback interface
 type demoCallback struct{}
 
-// OnLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
-// OnLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnLimited(delay time.Duration) {
+// OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
+// OnExecLimited is a method that prints the limited delay time when being limited
+func (demoCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 
@@ -248,7 +253,7 @@ msg: test -> 3
 msg: test -> 7
 ```
 
-### 4.2. Lazy mode
+### 5.2. Lazy mode
 
 In `lazy` mode, you can use the `NewSimpleFlowController` method to create a new flow controller. This method wraps the `NewFlowController` method and uses the default `pipeline` and `ratelimiter` modules.
 
@@ -267,9 +272,9 @@ import (
 // demoCallback is an empty structure used to implement the callback interface
 type demoCallback struct{}
 
-// OnLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
-// OnLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnLimited(delay time.Duration) {
+// OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
+// OnExecLimited is a method that prints the limited delay time when being limited
+func (demoCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 

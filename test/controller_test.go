@@ -15,7 +15,7 @@ import (
 
 type testCallback struct{}
 
-func (testCallback) OnLimited(delay time.Duration) {
+func (testCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 

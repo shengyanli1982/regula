@@ -1,7 +1,8 @@
 [English](./README.md) | 中文
 
 <div align="center">
-	<img src="assets/logo.png" alt="logo" width="500px"></br>
+	<img src="assets/logo.png" alt="logo" width="500px">
+	</br></br></br>
 </div>
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/shengyanli1982/regula)](https://goreportcard.com/report/github.com/shengyanli1982/regula)
@@ -36,13 +37,13 @@
 
 ## 安装
 
-### 1. 标准模式
+### 1. 专家模式
 
 ```bash
 go get github.com/shengyanli1982/regula
 ```
 
-### 2. 懒惰模式
+### 2. 懒人模式
 
 ```bash
 go get github.com/shengyanli1982/regula/contrib/lazy
@@ -124,11 +125,15 @@ type RateLimiterInterface = interface {
 > [!NOTE]
 > 如果您使用 `懒惰模式`，可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。流控制器将使用默认的 `pipeline` 和 `ratelimiter` 模块。`NewSimpleFlowController` 方法提供了 `回调函数`、`速率` 和 `突发数量` 参数。
 
-## 4. 示例
+## 4. 回调函数
+
+-   `OnExecLimited`: 当事件处理受限时调用此方法。
+
+## 5. 示例
 
 示例代码位于 `examples` 目录中。
 
-### 4.1. 标准模式
+### 5.1. 专家模式
 
 ```go
 package main
@@ -148,9 +153,9 @@ import (
 // demoCallback is an empty structure used to implement the callback interface
 type demoCallback struct{}
 
-// OnLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
-// OnLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnLimited(delay time.Duration) {
+// OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
+// OnExecLimited is a method that prints the limited delay time when being limited
+func (demoCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 
@@ -248,9 +253,9 @@ msg: test -> 3
 msg: test -> 7
 ```
 
-### 4.2. 懒惰模式
+### 5.2. 懒人模式
 
-在懒惰模式下，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。该方法封装了 `NewFlowController` 方法，并使用默认的 `pipeline` 和 `ratelimiter` 模块。
+在懒人模式下，您可以使用 `NewSimpleFlowController` 方法创建一个新的流控制器。该方法封装了 `NewFlowController` 方法，并使用默认的 `pipeline` 和 `ratelimiter` 模块。
 
 ```go
 package main
@@ -267,9 +272,9 @@ import (
 // demoCallback is an empty structure used to implement the callback interface
 type demoCallback struct{}
 
-// OnLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
-// OnLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnLimited(delay time.Duration) {
+// OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
+// OnExecLimited is a method that prints the limited delay time when being limited
+func (demoCallback) OnExecLimited(delay time.Duration) {
 	fmt.Printf("limited: %v\n", delay.String())
 }
 
