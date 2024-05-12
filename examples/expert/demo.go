@@ -17,8 +17,8 @@ type demoCallback struct{}
 
 // OnExecLimited 是一个方法，当被限制时，它会打印出被限制的延迟时间
 // OnExecLimited is a method that prints the limited delay time when being limited
-func (demoCallback) OnExecLimited(delay time.Duration) {
-	fmt.Printf("limited: %v\n", delay.String())
+func (demoCallback) OnExecLimited(msg any, delay time.Duration) {
+	fmt.Printf("limited -> msg: %v, delay: %v\n", msg, delay.String())
 }
 
 // newCallback 是一个函数，它创建并返回一个新的demoCallback

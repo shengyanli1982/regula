@@ -76,7 +76,7 @@ func (fc *FlowController) Do(fn MessageHandleFunc, msg any) error {
 	if delay > 0 {
 		// 调用回调函数，通知有延迟
 		// Call the callback function to notify that there is a delay
-		fc.config.callback.OnExecLimited(delay)
+		fc.config.callback.OnExecLimited(msg, delay)
 
 		// 在延迟后提交函数
 		// Submit the function after the delay
