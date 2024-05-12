@@ -9,7 +9,7 @@ English | [中文](./README_CN.md)
 [![Build Status](https://github.com/shengyanli1982/regula/actions/workflows/test.yaml/badge.svg)](https://github.com/shengyanli1982/regula/actions)
 [![Go Reference](https://pkg.go.dev/badge/github.com/shengyanli1982/regula.svg)](https://pkg.go.dev/github.com/shengyanli1982/regula)
 
-## What is Regula?
+# What is Regula?
 
 `Regula` is a flow control component designed to help Golang applications manage concurrency and data flow. It is designed to be simple, efficient, and easy to use, and it is designed to be used in a wide range of applications, from simple web applications to complex distributed systems.
 
@@ -17,7 +17,7 @@ English | [中文](./README_CN.md)
 
 `Regula` is a perfect fit for limiting the rate of requests to any resource, such as a database, API, or file.
 
-## Why need Regula?
+# Why need Regula?
 
 In Golang, we have various ways to handle concurrency and data flow, such as `channel`, `sync`, `context`, etc. However, these approaches can be challenging to use and may not provide optimal efficiency. `Regula` simplifies the complexity of concurrency and data flow, allowing developers to focus on the business logic.
 
@@ -25,7 +25,7 @@ In Golang, we have various ways to handle concurrency and data flow, such as `ch
 
 If `Regula` had been available earlier, I believe I could have finished my work more efficiently and possibly even left early every day.
 
-### Advantages
+## Advantages
 
 `Regula` is designed with the following key advantages:
 
@@ -35,7 +35,7 @@ If `Regula` had been available earlier, I believe I could have finished my work 
 -   **Scalable**: `Regula` is designed to be scalable, you can custom the `pipeline` and `ratelimiter` to fit your needs.
 -   **Reliable**: `Regula` is designed to be reliable. It based on proven technologies and has been tested in a wide range of applications.
 
-## Installation
+# Installation
 
 ### 1. Expert mode
 
