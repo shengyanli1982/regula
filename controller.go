@@ -15,7 +15,7 @@ type FlowController struct {
 
 	// pipline 是流控制器的管道接口
 	// pipline is the pipeline interface of the flow controller
-	pipline PipelineInterface
+	pipline Pipeline
 
 	// once 是用于确保某个操作只执行一次的同步原语
 	// once is a synchronization primitive used to ensure that an operation is performed only once
@@ -24,7 +24,7 @@ type FlowController struct {
 
 // NewFlowController 是创建新的流控制器的函数，它接受一个管道接口和配置
 // NewFlowController is a function to create a new flow controller, it accepts a pipeline interface and configuration
-func NewFlowController(pipline PipelineInterface, conf *Config) *FlowController {
+func NewFlowController(pipline Pipeline, conf *Config) *FlowController {
 	// 如果管道接口为空，则返回 nil
 	// If the pipeline interface is nil, return nil
 	if pipline == nil {

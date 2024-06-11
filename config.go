@@ -7,7 +7,7 @@ import (
 // Config 是配置的结构体，包含一个速率限制器接口
 // Config is the structure for configuration, containing a rate limiter interface
 type Config struct {
-	ratelimiter RateLimiterInterface
+	ratelimiter RateLimiter
 	callback    Callback
 }
 
@@ -28,7 +28,7 @@ func DefaultConfig() *Config {
 
 // WithRateLimiter 它设置配置的速率限制器
 // WithRateLimiter is a method that sets the rate limiter of the configuration
-func (c *Config) WithRateLimiter(rl RateLimiterInterface) *Config {
+func (c *Config) WithRateLimiter(rl RateLimiter) *Config {
 	c.ratelimiter = rl
 	return c
 }
@@ -51,6 +51,7 @@ func isConfigValid(conf *Config) *Config {
 		if conf.ratelimiter == nil {
 			conf.ratelimiter = rl.NewNopLimiter()
 		}
+		
 		// 如果配置中的回调函数为空，则设置为空回调函数
 		// If the callback function in the configuration is null, set it to an empty callback function
 		if conf.callback == nil {

@@ -5,7 +5,7 @@ import (
 	"github.com/shengyanli1982/regula"
 	fctrl "github.com/shengyanli1982/regula"
 	rl "github.com/shengyanli1982/regula/ratelimiter"
-	"github.com/shengyanli1982/workqueue"
+	wkq "github.com/shengyanli1982/workqueue/v2"
 )
 
 // NewSimpleFlowController 是一个函数，它创建并返回一个简单版的流控制器
@@ -17,7 +17,7 @@ func NewSimpleFlowController(rate float64, burst int64, cb fctrl.Callback) *fctr
 
 	// 创建一个新的假延迟队列
 	// Create a new fake delay queue
-	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 
 	// 使用队列和配置创建一个新的管道
 	// Create a new pipeline using the queue and configuration
