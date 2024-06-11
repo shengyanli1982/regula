@@ -72,9 +72,9 @@ go get github.com/shengyanli1982/regula/contrib/lazy
 **Pipeline 接口**
 
 ```go
-// PipelineInterface 是一个管道接口，用于添加事件到管道、延迟添加事件到管道以及停止管道的操作。
-// PipelineInterface is a pipeline interface for adding events to the pipeline, delaying events to the pipeline, and stopping the pipeline.
-type PipelineInterface = interface {
+// Pipeline 是一个管道接口，用于添加事件到管道、延迟添加事件到管道以及停止管道的操作。
+// Pipeline is a pipeline interface for adding events to the pipeline, delaying events to the pipeline, and stopping the pipeline.
+type Pipeline = interface {
 	// SubmitWithFunc 将一个新的事件添加到管道中，并指定消息处理函数。
 	// SubmitWithFunc adds a new event to the pipeline and specifies the message processing function.
 	SubmitWithFunc(fn MessageHandleFunc, msg any) error
@@ -92,9 +92,9 @@ type PipelineInterface = interface {
 **速率限制器接口**
 
 ```go
-// RateLimiterInterface 是一个接口，定义了一个方法，该方法返回下一个事件的延迟时间
-// RateLimiterInterface is an interface that defines a method that returns the delay time of the next event
-type RateLimiterInterface = interface {
+// RateLimiter 是一个接口，定义了一个方法，该方法返回下一个事件的延迟时间
+// RateLimiter is an interface that defines a method that returns the delay time of the next event
+type RateLimiter = interface {
 	// When 返回下一个事件的延迟时间
 	// When returns the delay time of the next event
 	When() time.Duration
@@ -293,7 +293,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/shengyanli1982/regula/contrib/lazy"
+	"github.com/shengyanli1982/karta"
+	"github.com/shengyanli1982/regula"
+	rl "github.com/shengyanli1982/regula/ratelimiter"
+	wkq "github.com/shengyanli1982/workqueue/v2"
 )
 
 // demoCallback 是一个空结构体，用于实现回调接口
@@ -313,9 +316,29 @@ func newCallback() *demoCallback {
 }
 
 func main() {
-	// 创建一个新的流控制器，设置速率为2，突发为1和回调函数
-	// Create a new flow controller, set the rate to 2, burst to 1 and callback function
-	fc := lazy.NewSimpleFlowController(float64(2), 1, newCallback())
+	// 创建一个新的配置，并设置工作线程数为2
+	// Create a new configuration and set the number of worker threads to 2
+	kconf := karta.NewConfig().WithWorkerNumber(2)
+
+	// 创建一个新的假延迟队列
+	// Create a new fake delay queue
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
+
+	// 使用队列和配置创建一个新的管道
+	// Create a new pipeline using the queue and configuration
+	pl := karta.NewPipeline(queue, kconf)
+
+	// 创建一个新的速率限制器，并设置速率为10，突发为1
+	// Create a new rate limiter and set the rate to 10 and burst to 1
+	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
+
+	// 创建一个新的流控制器配置，并设置回调函数和速率限制器
+	// Create a new flow controller configuration and set the callback function and rate limiter
+	fconf := regula.NewConfig().WithCallback(newCallback()).WithRateLimiter(rl)
+
+	// 使用管道和配置创建一个新的流控制器
+	// Create a new flow controller using the pipeline and configuration
+	fc := regula.NewFlowController(pl, fconf)
 
 	// 在函数结束时停止管道、队列和流控制器 (FlowController 会关闭 Pipeline，Pipeline 会关闭 Queue)
 	// Stop the pipeline, queue and flow controller when the function ends (FlowController will close Pipeline, Pipeline will close Queue)
@@ -351,9 +374,9 @@ func main() {
 	// Wait for all goroutines to end
 	wg.Wait()
 
-	// 等待5秒
-	// Wait for 5 seconds
-	time.Sleep(time.Second * 5)
+	// 等待2秒
+	// Wait for 2 seconds
+	time.Sleep(time.Second * 2)
 }
 ```
 

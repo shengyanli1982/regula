@@ -8,7 +8,7 @@ import (
 	"github.com/shengyanli1982/karta"
 	"github.com/shengyanli1982/regula"
 	rl "github.com/shengyanli1982/regula/ratelimiter"
-	"github.com/shengyanli1982/workqueue"
+	wkq "github.com/shengyanli1982/workqueue/v2"
 )
 
 // demoCallback 是一个空结构体，用于实现回调接口
@@ -34,7 +34,7 @@ func main() {
 
 	// 创建一个新的假延迟队列
 	// Create a new fake delay queue
-	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 
 	// 使用队列和配置创建一个新的管道
 	// Create a new pipeline using the queue and configuration

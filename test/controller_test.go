@@ -9,7 +9,7 @@ import (
 	"github.com/shengyanli1982/karta"
 	"github.com/shengyanli1982/regula"
 	rl "github.com/shengyanli1982/regula/ratelimiter"
-	"github.com/shengyanli1982/workqueue"
+	wkq "github.com/shengyanli1982/workqueue/v2"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +25,7 @@ func newTestCallback() *testCallback {
 
 func TestFlowController_Do(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := karta.NewFakeDelayingQueue(workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 	pl := karta.NewPipeline(queue, kconf)
 	fc := regula.NewFlowController(pl, nil)
 
@@ -42,7 +42,7 @@ func TestFlowController_Do(t *testing.T) {
 
 func TestFlowController_DoAfter(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 	pl := karta.NewPipeline(queue, kconf)
 	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)
@@ -64,7 +64,7 @@ func TestFlowController_DoAfter(t *testing.T) {
 
 func TestFlowController_DoParallel(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 	pl := karta.NewPipeline(queue, kconf)
 	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)
@@ -91,7 +91,7 @@ func TestFlowController_DoParallel(t *testing.T) {
 }
 func TestFlowController_DoUniqQueue(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := workqueue.NewDelayingQueue(nil)
+	queue := wkq.NewDelayingQueue(nil)
 	pl := karta.NewPipeline(queue, kconf)
 	fc := regula.NewFlowController(pl, nil)
 
@@ -108,7 +108,7 @@ func TestFlowController_DoUniqQueue(t *testing.T) {
 
 func TestFlowController_DoUniqQueueAfter(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := workqueue.NewDelayingQueue(nil)
+	queue := wkq.NewDelayingQueue(nil)
 	pl := karta.NewPipeline(queue, kconf)
 	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)
@@ -130,7 +130,7 @@ func TestFlowController_DoUniqQueueAfter(t *testing.T) {
 
 func TestFlowController_DoUniqQueueParallel(t *testing.T) {
 	kconf := karta.NewConfig().WithWorkerNumber(2)
-	queue := workqueue.NewDelayingQueue(nil)
+	queue := wkq.NewDelayingQueue(nil)
 	pl := karta.NewPipeline(queue, kconf)
 	rl := rl.NewRateLimiter(rl.NewConfig().WithRate(10).WithBurst(1))
 	fconf := regula.NewConfig().WithCallback(newTestCallback()).WithRateLimiter(rl)

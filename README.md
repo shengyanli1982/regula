@@ -72,9 +72,9 @@ go get github.com/shengyanli1982/regula/contrib/lazy
 **Pipeline Interface**
 
 ```go
-// PipelineInterface 是一个管道接口，用于添加事件到管道、延迟添加事件到管道以及停止管道的操作。
-// PipelineInterface is a pipeline interface for adding events to the pipeline, delaying events to the pipeline, and stopping the pipeline.
-type PipelineInterface = interface {
+// Pipeline 是一个管道接口，用于添加事件到管道、延迟添加事件到管道以及停止管道的操作。
+// Pipeline is a pipeline interface for adding events to the pipeline, delaying events to the pipeline, and stopping the pipeline.
+type Pipeline = interface {
 	// SubmitWithFunc 将一个新的事件添加到管道中，并指定消息处理函数。
 	// SubmitWithFunc adds a new event to the pipeline and specifies the message processing function.
 	SubmitWithFunc(fn MessageHandleFunc, msg any) error
@@ -92,9 +92,9 @@ type PipelineInterface = interface {
 **Ratelimiter Interface**
 
 ```go
-// RateLimiterInterface 是一个接口，定义了一个方法，该方法返回下一个事件的延迟时间
-// RateLimiterInterface is an interface that defines a method that returns the delay time of the next event
-type RateLimiterInterface = interface {
+// RateLimiter 是一个接口，定义了一个方法，该方法返回下一个事件的延迟时间
+// RateLimiter is an interface that defines a method that returns the delay time of the next event
+type RateLimiter = interface {
 	// When 返回下一个事件的延迟时间
 	// When returns the delay time of the next event
 	When() time.Duration
@@ -163,7 +163,7 @@ import (
 	"github.com/shengyanli1982/karta"
 	"github.com/shengyanli1982/regula"
 	rl "github.com/shengyanli1982/regula/ratelimiter"
-	"github.com/shengyanli1982/workqueue"
+	wkq "github.com/shengyanli1982/workqueue/v2"
 )
 
 // demoCallback 是一个空结构体，用于实现回调接口
@@ -189,7 +189,7 @@ func main() {
 
 	// 创建一个新的假延迟队列
 	// Create a new fake delay queue
-	queue := workqueue.NewDelayingQueueWithCustomQueue(nil, workqueue.NewSimpleQueue(nil))
+	queue := karta.NewFakeDelayingQueue(wkq.NewQueue(nil))
 
 	// 使用队列和配置创建一个新的管道
 	// Create a new pipeline using the queue and configuration
